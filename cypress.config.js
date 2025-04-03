@@ -1,10 +1,17 @@
 const { defineConfig } = require("cypress");
+require('dotenv').config();
 
 module.exports = defineConfig({
   projectId: "xp6cuw",
   e2e: {
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      config.env = {
+        ...process.env,
+        USER_ID: process.env.CYPRESS_USER_ID,
+        AUTHORIZATION_TOKEN: process.env.CYPRESS_AUTHORIZATION_TOKEN,
+        API_URL: process.env.CYPRESS_API_URL
+      };
+      return config;
     },
     video: true,
     reporter: 'mochawesome',
